@@ -27,15 +27,17 @@ export const LogoImage = styled.img`
 `;
 
 export const ContainerLogin = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   width: 100%;
   max-width: 500px;
   background-color: aquamarine;
   z-index: 2;
-  padding: 20px;
+  height: 100vh;
 `;
 
 export const SubContainer = styled.div`
@@ -45,4 +47,5 @@ export const SubContainer = styled.div`
   width: 100%;
   max-width: 400px;
   flex-direction: column;
+  padding: 0px 20px 0px 20px;
 `;

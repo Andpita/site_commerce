@@ -2,12 +2,12 @@ import axios from 'axios';
 import { useState } from 'react';
 
 import { Button } from '../../../shared/buttons/button';
+import { SVGHome } from '../../../shared/icons/SVGHome';
 import { InputDefault } from '../../../shared/inputs/input';
 import {
   BackgroundImage,
   ContainerLogin,
   DivLogin,
-  LogoImage,
   SubContainer,
   TitleLogin,
 } from '../styles/LoginScreen.styles';
@@ -48,7 +48,7 @@ export const LoginScreen = () => {
       <BackgroundImage src="./image/background.png" />
       <ContainerLogin>
         <SubContainer>
-          <LogoImage src="./image/logo.png" />
+          <SVGHome />
           <TitleLogin level={2}>LOGIN</TitleLogin>
           <InputDefault title="E-MAIL" margin="10px 0px" onChange={changeEmail} value={email} />
           <InputDefault
