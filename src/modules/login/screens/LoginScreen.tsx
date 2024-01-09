@@ -1,9 +1,10 @@
-import axios from 'axios';
 import { useState } from 'react';
 
-import { Button } from '../../../shared/buttons/button';
+import { Button } from '../../../shared/components/buttons/button';
+import { InputDefault } from '../../../shared/components/inputs/input';
+import { useGlobalContext } from '../../../shared/hooks/useGlobalContext';
+import { useRequest } from '../../../shared/hooks/useRequest';
 import { SVGHome } from '../../../shared/icons/SVGHome';
-import { InputDefault } from '../../../shared/inputs/input';
 import {
   BackgroundImage,
   ContainerLogin,
@@ -13,8 +14,10 @@ import {
 } from '../styles/LoginScreen.styles';
 
 export const LoginScreen = () => {
+  const { accessToken, setAccessToken } = useGlobalContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { loading, postRequest } = useRequest();
 
   const changeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -25,22 +28,12 @@ export const LoginScreen = () => {
   };
 
   const handleSubmit = async () => {
-    await axios({
-      method: 'post',
-      url: 'http://localhost:4003/auth',
-      data: {
-        email: email,
-        password: password,
-      },
-    })
-      .then((result) => {
-        alert(result.data.accessToken);
-        console.log('Fez login');
-      })
-      .catch((e) => {
-        console.log('Deu erro');
-        console.log(e);
-      });
+    const result = await postRequest('http://localhost:4003/auth', {
+      email: email,
+      password: password,
+    });
+
+    setAccessToken(result.accessToken);
   };
 
   return (
@@ -49,7 +42,7 @@ export const LoginScreen = () => {
       <ContainerLogin>
         <SubContainer>
           <SVGHome />
-          <TitleLogin level={2}>LOGIN</TitleLogin>
+          <TitleLogin level={2}>LOGIN {accessToken}</TitleLogin>
           <InputDefault title="E-MAIL" margin="10px 0px" onChange={changeEmail} value={email} />
           <InputDefault
             title="SENHA"
@@ -58,7 +51,12 @@ export const LoginScreen = () => {
             value={password}
             type="password"
           />
-          <Button type="primary" margin="36px 0px 16px 0px" onClick={handleSubmit}>
+          <Button
+            loading={loading}
+            type="primary"
+            margin="36px 0px 16px 0px"
+            onClick={handleSubmit}
+          >
             ENTRAR
           </Button>
         </SubContainer>
