@@ -12,9 +12,10 @@ import {
   SubContainer,
   TitleLogin,
 } from '../styles/LoginScreen.styles';
+import { UserType } from '../types/UserType';
 
 export const LoginScreen = () => {
-  const { accessToken, setAccessToken } = useGlobalContext();
+  const { setAccessToken } = useGlobalContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { loading, postRequest } = useRequest();
@@ -28,12 +29,11 @@ export const LoginScreen = () => {
   };
 
   const handleSubmit = async () => {
-    const result = await postRequest('http://localhost:4003/auth', {
+    const user = await postRequest<UserType>('http://localhost:4003/auth', {
       email: email,
       password: password,
     });
-
-    setAccessToken(result.accessToken);
+    setAccessToken(user?.accessToken || '');
   };
 
   return (
@@ -42,7 +42,7 @@ export const LoginScreen = () => {
       <ContainerLogin>
         <SubContainer>
           <SVGHome />
-          <TitleLogin level={2}>LOGIN {accessToken}</TitleLogin>
+          <TitleLogin level={2}>LOGIN</TitleLogin>
           <InputDefault title="E-MAIL" margin="10px 0px" onChange={changeEmail} value={email} />
           <InputDefault
             title="SENHA"
