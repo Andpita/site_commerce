@@ -1,18 +1,16 @@
 import type { Router as RemixRouter } from '@remix-run/router';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { LoginRouter } from './modules/login/routes';
+import { FirstScreenRoutes } from './modules/firstScreen/routes';
+import { LoginRoutes } from './modules/login/routes';
+import { ProductRoutes } from './modules/product/routes';
 import { useNotification } from './shared/hooks/useNotification';
 
-export const MainPage = [
-  {
-    path: '/',
-    element: <div>Tela Princípal</div>,
-    errorElement: <div>404</div>,
-  },
-];
-
-const router: RemixRouter = createBrowserRouter([...MainPage, ...LoginRouter]);
+const router: RemixRouter = createBrowserRouter([
+  ...FirstScreenRoutes,
+  ...LoginRoutes,
+  ...ProductRoutes,
+]);
 
 function App() {
   const { contextHolder } = useNotification();

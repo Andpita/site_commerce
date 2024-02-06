@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import { Button } from '../../../shared/components/buttons/button';
 import { InputDefault } from '../../../shared/components/inputs/input';
-import { useGlobalContext } from '../../../shared/hooks/useGlobalContext';
 import { useRequest } from '../../../shared/hooks/useRequest';
 import { SVGHome } from '../../../shared/icons/SVGHome';
 import {
@@ -12,13 +11,11 @@ import {
   SubContainer,
   TitleLogin,
 } from '../styles/LoginScreen.styles';
-import { UserType } from '../types/UserType';
 
 export const LoginScreen = () => {
-  const { setAccessToken } = useGlobalContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { loading, postRequest } = useRequest();
+  const { loading, authRequest } = useRequest();
 
   const changeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -28,12 +25,11 @@ export const LoginScreen = () => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = async () => {
-    const user = await postRequest<UserType>('http://localhost:4003/auth', {
+  const handleSubmit = () => {
+    authRequest({
       email: email,
       password: password,
     });
-    setAccessToken(user?.accessToken || '');
   };
 
   return (

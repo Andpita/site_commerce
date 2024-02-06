@@ -1,6 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-
-import { getAuthorizationToken, setAuthorizationToken } from '../functions/connections/auth';
+import { createContext, useContext, useState } from 'react';
 
 type NotificationType = 'success' | 'error' | 'info' | 'warning';
 
@@ -38,22 +36,6 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
 export const useGlobalContext = () => {
   const { globalData, setGlobalData } = useContext(GlobalContext);
 
-  useEffect(() => {
-    const token = getAuthorizationToken();
-    if (token) {
-      setAccessToken(token);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const setAccessToken = (accessToken: string) => {
-    setAuthorizationToken(accessToken);
-    setGlobalData({
-      ...globalData,
-      accessToken,
-    });
-  };
-
   const setNotification = (type: NotificationType, message: string, description?: string) => {
     setGlobalData({
       ...globalData,
@@ -68,7 +50,6 @@ export const useGlobalContext = () => {
   return {
     notification: globalData?.notification,
     accessToken: globalData?.accessToken,
-    setAccessToken,
     setNotification,
   };
 };

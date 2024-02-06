@@ -1,6 +1,6 @@
 import LoginScreen from '.';
 
-export const LoginRouter = [
+export const LoginRoutes = [
   {
     path: '/login',
     element: <LoginScreen />,
