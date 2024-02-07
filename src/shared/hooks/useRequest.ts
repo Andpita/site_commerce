@@ -12,7 +12,7 @@ import { useGlobalContext } from './useGlobalContext';
 
 export const useRequest = () => {
   const [loading, setLoading] = useState(false);
-  const { setNotification } = useGlobalContext();
+  const { setNotification, setUser } = useGlobalContext();
   const navigate = useNavigate();
 
   const getRequest = async (url: string) => {
@@ -38,7 +38,6 @@ export const useRequest = () => {
       .then((result) => {
         setNotification('success', `Você fez Login!`);
         navigate(RoutesEnum.PRODUCT);
-
         return result;
       })
       .catch(() => {
@@ -57,6 +56,7 @@ export const useRequest = () => {
       .then((result) => {
         setNotification('success', `Você fez Login!`);
         setAuthorizationToken(result.accessToken);
+        setUser(result.user);
         navigate(RoutesEnum.PRODUCT);
 
         return result;
