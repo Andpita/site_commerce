@@ -1,7 +1,7 @@
 import { notification as notificationAntd } from 'antd';
 import { useEffect } from 'react';
 
-import { useGlobalContext } from './useGlobalContext';
+import { useGlobalContext } from './UseGlobalContext';
 
 export const useNotification = () => {
   const [api, contextHolder] = notificationAntd.useNotification();

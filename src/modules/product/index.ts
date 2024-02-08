@@ -1,3 +1,3 @@
-import { Product } from './screens/product';
+import { Product } from './screens/Product';
 
 export default Product;

@@ -8,7 +8,7 @@ import { URL_AUTH } from '../constants/urls';
 import { RoutesEnum } from '../enums/route.enum';
 import { setAuthorizationToken } from '../functions/connections/auth';
 import { ConnectionAPIPost } from '../functions/connections/connectAPI';
-import { useGlobalContext } from './useGlobalContext';
+import { useGlobalContext } from './UseGlobalContext';
 
 export const useRequest = () => {
   const [loading, setLoading] = useState(false);

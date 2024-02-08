@@ -1,4 +1,4 @@
-import { useGlobalContext } from '../../../shared/hooks/useGlobalContext';
+import { useGlobalContext } from '../../../shared/hooks/UseGlobalContext';
 
 export const Product = () => {
   const { user } = useGlobalContext();
