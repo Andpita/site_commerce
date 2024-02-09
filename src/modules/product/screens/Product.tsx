@@ -6,14 +6,16 @@ import { URL_PRODUCTS } from '../../../shared/constants/urls';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { useDataContext } from '../../../shared/hooks/UseDataContext';
 import { useRequest } from '../../../shared/hooks/useRequest';
-import { ProductType } from '../types/productType';
+import { CategoryColumn } from '../components/CategoryColumn';
+import { TooltipImage } from '../components/TooltipImage';
+import { ProductType } from '../types/ProductType';
 
 const columns: TableProps<ProductType>['columns'] = [
   {
     title: 'Id',
     dataIndex: 'id',
     key: 'id',
-    render: (text) => <a>{text}</a>,
+    render: (_, product) => <TooltipImage product={product} />,
   },
   {
     title: 'Nome',
@@ -26,6 +28,12 @@ const columns: TableProps<ProductType>['columns'] = [
     dataIndex: 'price',
     key: 'price',
     render: (text) => <a>{text}</a>,
+  },
+  {
+    title: 'Categoria',
+    dataIndex: 'category',
+    key: 'category',
+    render: (_, product) => <CategoryColumn category={product.category} />,
   },
 ];
 
