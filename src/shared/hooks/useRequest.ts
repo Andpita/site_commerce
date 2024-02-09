@@ -1,52 +1,39 @@
-import axios from 'axios';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { AuthType } from '../../modules/login/types/AuthType';
 import { ERROR_INVALID_PASSWORD } from '../constants/errorStatus';
 import { URL_AUTH } from '../constants/urls';
-import { RoutesEnum } from '../enums/route.enum';
 import { setAuthorizationToken } from '../functions/connections/auth';
-import { ConnectionAPIPost } from '../functions/connections/connectAPI';
+import ConnectionAPI, { ConnectionAPIPost } from '../functions/connections/connectAPI';
 import { useGlobalContext } from './UseGlobalContext';
 
 export const useRequest = () => {
   const [loading, setLoading] = useState(false);
   const { setNotification, setUser } = useGlobalContext();
-  const navigate = useNavigate();
 
-  const getRequest = async (url: string) => {
+  const request = async <T>(
+    url: string,
+    method: string,
+    saveGlobal?: (obj: T) => void,
+    body?: unknown,
+  ): Promise<T | undefined> => {
     setLoading(true);
 
-    return await axios({
-      method: 'get',
-      url: url,
-    })
+    const data: T | undefined = await ConnectionAPI.connect<T>(url, method, body)
       .then((result) => {
-        alert(result.data);
-      })
-      .catch(() => {
-        alert('Deu erro');
-      })
-      .finally(() => setLoading(false));
-  };
+        if (saveGlobal) {
+          saveGlobal(result);
+        }
 
-  const postRequest = async <T>(url: string, body: unknown): Promise<void> => {
-    setLoading(true);
-
-    await ConnectionAPIPost<T>(url, body)
-      .then((result) => {
-        setNotification('success', `Você fez Login!`);
-        navigate(RoutesEnum.PRODUCT);
         return result;
       })
-      .catch(() => {
-        setNotification('error', 'Usuário ou Senha inválidos');
+      .catch((error: Error) => {
+        setNotification('error', error.message);
         return undefined;
       })
-      .finally(() => {
-        setLoading(false);
-      });
+      .finally(() => setLoading(false));
+
+    return data;
   };
 
   const authRequest = async (body: unknown): Promise<void> => {
@@ -57,7 +44,6 @@ export const useRequest = () => {
         setNotification('success', `Você fez Login!`);
         setAuthorizationToken(result.accessToken);
         setUser(result.user);
-        navigate(RoutesEnum.PRODUCT);
 
         return result;
       })
@@ -73,7 +59,6 @@ export const useRequest = () => {
   return {
     loading,
     authRequest,
-    getRequest,
-    postRequest,
+    request,
   };
 };

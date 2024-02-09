@@ -15,7 +15,6 @@ export const useNotification = () => {
         placement: 'bottomRight',
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notification]);
 
   return {

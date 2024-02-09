@@ -13,6 +13,6 @@ export const FirstScreen = () => {
     if (user) {
       navigate(RoutesEnum.PRODUCT);
     }
-  }, []);
+  }, [user]);
   return <Spin />;
 };
