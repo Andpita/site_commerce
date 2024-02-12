@@ -1,5 +1,5 @@
-import { Tooltip } from 'antd';
-
+import { TooltipCustom } from '../../../shared/components/tooltip/TooltipCustom';
+import { ImageProduct } from '../styles/tooltypeImage.style';
 import { ProductType } from '../types/ProductType';
 
 interface TooltipImageProps {
@@ -8,8 +8,10 @@ interface TooltipImageProps {
 
 export const TooltipImage = ({ product }: TooltipImageProps) => {
   return (
-    <Tooltip title={product.name} placement="leftBottom">
+    <TooltipCustom tooltip={<ImageProduct src={product.image} />}>
       <span>{product.id}</span>
-    </Tooltip>
+    </TooltipCustom>
   );
 };
+
+export default TooltipImage;
