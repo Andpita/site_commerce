@@ -31,7 +31,7 @@ export default class ConnectionAPI {
     }
   }
   static async connect<T>(url: string, method: string, body?: unknown): Promise<T> {
-    return ConnectionAPI.call<T>(url, method, body).catch((e) => {
+    return await ConnectionAPI.call<T>(url, method, body).catch((e) => {
       if (e.response) {
         switch (e.response.status) {
           case 401:
