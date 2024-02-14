@@ -12,9 +12,10 @@ import { RoutesEnum } from '../../../shared/enums/route.enum';
 import { convertMoney } from '../../../shared/functions/money';
 import { useDataContext } from '../../../shared/hooks/UseDataContext';
 import { useRequest } from '../../../shared/hooks/useRequest';
+import { LimitedContainer } from '../../../shared/styles/limitedContainer.style';
 import { CategoryColumn } from '../components/CategoryColumn';
 import { TooltipImage } from '../components/TooltipImage';
-import { BoxButton, LimitSizeButton, LimitSizeButtonSearch } from '../styles/product.style';
+import { BoxButton } from '../styles/product.style';
 import { ProductType } from '../types/ProductType';
 
 const columns: TableProps<ProductType>['columns'] = [
@@ -88,14 +89,14 @@ export const Product = () => {
   return (
     <Screen listBreadcrumb={listBreadcrumb}>
       <BoxButton>
-        <LimitSizeButtonSearch>
+        <LimitedContainer width={320}>
           <Search placeholder="Buscar Produto..." onSearch={onSearch} enterButton />
-        </LimitSizeButtonSearch>
-        <LimitSizeButton>
+        </LimitedContainer>
+        <LimitedContainer width={160}>
           <Button type="primary" onClick={handleOnClick}>
             Inserir
           </Button>
-        </LimitSizeButton>
+        </LimitedContainer>
       </BoxButton>
 
       <Table columns={columns} dataSource={productsFiltered} rowKey="" />
