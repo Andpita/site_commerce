@@ -4,4 +4,6 @@ body {
   box-sizing: border-box;
   outline: none;
   list-style: none;
+
+  background-color: #E0BAD7;
 }
