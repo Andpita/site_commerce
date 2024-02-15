@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { Button } from '../../../shared/components/buttons/Button';
-import { InputDefault } from '../../../shared/components/inputs/Input';
+import { InputDefault } from '../../../shared/components/inputs/InputDefault';
 import { useRequest } from '../../../shared/hooks/useRequest';
 import { SVGHome } from '../../../shared/icons/SVGHome';
 import {

@@ -99,7 +99,7 @@ export const Product = () => {
         </LimitedContainer>
       </BoxButton>
 
-      <Table columns={columns} dataSource={productsFiltered} rowKey="" />
+      <Table columns={columns} dataSource={productsFiltered} rowKey={'id'} />
     </Screen>
   );
 };
