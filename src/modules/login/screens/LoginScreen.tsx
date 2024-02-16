@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from '../../../shared/components/buttons/Button';
 import { InputDefault } from '../../../shared/components/inputs/InputDefault';
+import { RoutesEnum } from '../../../shared/enums/route.enum';
+import { useGlobalContext } from '../../../shared/hooks/UseGlobalContext';
 import { useRequest } from '../../../shared/hooks/useRequest';
 import { SVGHome } from '../../../shared/icons/SVGHome';
 import {
@@ -16,6 +19,14 @@ export const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { loading, authRequest } = useRequest();
+  const navigate = useNavigate();
+  const { user } = useGlobalContext();
+
+  useEffect(() => {
+    if (user) {
+      navigate(RoutesEnum.PRODUCT);
+    }
+  }, [user]);
 
   const changeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);

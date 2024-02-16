@@ -44,6 +44,7 @@ export const useRequest = () => {
         setNotification('success', `Você fez Login!`);
         setAuthorizationToken(result.accessToken);
         setUser(result.user);
+        location.href = '/product';
 
         return result;
       })

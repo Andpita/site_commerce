@@ -1,6 +1,9 @@
+import { NavigateFunction } from 'react-router-dom';
+
 import { UserType } from '../../../modules/login/types/UserType';
 import { AUTHORIZATION_KEY } from '../../constants/authorizationConstants';
 import { URL_USER } from '../../constants/urls';
+import { RoutesEnum } from '../../enums/route.enum';
 import { ConnectionAPIGet } from './connectAPI';
 import { getItemStorege, removeItemStorege, setItemStorege } from './storageProxy';
 
@@ -25,4 +28,9 @@ export const verifyLoggedIn = async () => {
   });
 
   return 0;
+};
+
+export const logout = (navigate: NavigateFunction) => {
+  unsetAuthorizationToken();
+  navigate(RoutesEnum.LOGIN);
 };
