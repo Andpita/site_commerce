@@ -19,7 +19,7 @@ export const Screen = ({ children, listBreadcrumb }: ScreenProps) => {
         {listBreadcrumb && (
           <>
             <Breadcrumb listBreadcrumb={listBreadcrumb} />
-            <Divider />
+            <Divider style={{ margin: `12px 0px` }} />
           </>
         )}
         {children}

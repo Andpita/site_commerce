@@ -3,7 +3,9 @@ import Search from 'antd/es/input/Search';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { BoxButton } from '../../../shared/components/box/box.styled';
 import { Button } from '../../../shared/components/buttons/Button';
+import { LimitedContainer } from '../../../shared/components/containers/limitedContainers.styled';
 import { Screen } from '../../../shared/components/screen/Screen';
 import Table from '../../../shared/components/table/Table';
 import { URL_PRODUCTS } from '../../../shared/constants/urls';
@@ -12,10 +14,8 @@ import { RoutesEnum } from '../../../shared/enums/route.enum';
 import { convertMoney } from '../../../shared/functions/money';
 import { useDataContext } from '../../../shared/hooks/UseDataContext';
 import { useRequest } from '../../../shared/hooks/useRequest';
-import { LimitedContainer } from '../../../shared/styles/limitedContainer.style';
 import { CategoryColumn } from '../components/CategoryColumn';
 import { TooltipImage } from '../components/TooltipImage';
-import { BoxButton } from '../styles/product.style';
 import { ProductType } from '../types/ProductType';
 
 const columns: TableProps<ProductType>['columns'] = [

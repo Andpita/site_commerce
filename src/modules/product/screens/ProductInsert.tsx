@@ -1,11 +1,11 @@
 import { Button } from '../../../shared/components/buttons/Button';
+import { LimitedContainer } from '../../../shared/components/containers/limitedContainers.styled';
+import { DisplayFlex } from '../../../shared/components/displays/display.styled';
 import { InputDefault } from '../../../shared/components/inputs/InputDefault';
 import { InputMoney } from '../../../shared/components/inputs/inputMoney';
 import { Screen } from '../../../shared/components/screen/Screen';
 import { SelectDefault } from '../../../shared/components/select/Select';
 import { RoutesEnum } from '../../../shared/enums/route.enum';
-import { DisplayFlex } from '../../../shared/styles/display.styled';
-import { LimitedContainer } from '../../../shared/styles/limitedContainer.style';
 import { useCategory } from '../../category/hooks/useCategory';
 import { useInsertProduct } from '../hooks/useProductInsert';
 import { ContainerInsertProduct } from '../styles/productInsert.style';

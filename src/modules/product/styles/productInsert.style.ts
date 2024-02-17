@@ -6,7 +6,3 @@ export const ContainerInsertProduct = styled.div`
   justify-content: center;
   min-height: 400px;
 `;
-
-export const LimitContainer = styled.div`
-  width: 500px;
-`;
