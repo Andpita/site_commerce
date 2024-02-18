@@ -13,10 +13,10 @@ import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { RoutesEnum } from '../../../shared/enums/route.enum';
 import { convertMoney } from '../../../shared/functions/money';
 import { useRequest } from '../../../shared/hooks/useRequest';
+import { ProductType } from '../../../shared/types/ProductType';
 import { useProductReducer } from '../../../store/reducers/productsReducer/useProductReducer';
 import { CategoryColumn } from '../components/CategoryColumn';
 import { TooltipImage } from '../components/TooltipImage';
-import { ProductType } from '../../../shared/types/ProductType';
 
 const columns: TableProps<ProductType>['columns'] = [
   {
