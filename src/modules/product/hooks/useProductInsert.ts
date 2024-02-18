@@ -5,12 +5,12 @@ import { URL_PRODUCTS } from '../../../shared/constants/urls';
 import { InsertProduct } from '../../../shared/dto/insertProduct';
 import { RoutesEnum } from '../../../shared/enums/route.enum';
 import { ConnectionAPIPost } from '../../../shared/functions/connections/connectAPI';
-import { useGlobalContext } from '../../../shared/hooks/UseGlobalContext';
+import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 
 export const useInsertProduct = () => {
   const [loading, setLoading] = useState(false);
   const [disableButton, setDisableButton] = useState(true);
-  const { setNotification } = useGlobalContext();
+  const { setNotification } = useGlobalReducer();
   const navigate = useNavigate();
   const [product, setProduct] = useState<InsertProduct>({
     name: '',

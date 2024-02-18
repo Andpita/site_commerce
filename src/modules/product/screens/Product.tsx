@@ -12,11 +12,11 @@ import { URL_PRODUCTS } from '../../../shared/constants/urls';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { RoutesEnum } from '../../../shared/enums/route.enum';
 import { convertMoney } from '../../../shared/functions/money';
-import { useDataContext } from '../../../shared/hooks/UseDataContext';
 import { useRequest } from '../../../shared/hooks/useRequest';
+import { useProductReducer } from '../../../store/reducers/productsReducer/useProductReducer';
 import { CategoryColumn } from '../components/CategoryColumn';
 import { TooltipImage } from '../components/TooltipImage';
-import { ProductType } from '../types/ProductType';
+import { ProductType } from '../../../shared/types/ProductType';
 
 const columns: TableProps<ProductType>['columns'] = [
   {
@@ -50,7 +50,9 @@ const columns: TableProps<ProductType>['columns'] = [
 export const Product = () => {
   const { request } = useRequest();
   const navigate = useNavigate();
-  const { products, setProducts } = useDataContext();
+
+  const { products, setProducts } = useProductReducer();
+
   const [productsFiltered, setProductsFiltered] = useState<ProductType[]>([]);
 
   useEffect(() => {

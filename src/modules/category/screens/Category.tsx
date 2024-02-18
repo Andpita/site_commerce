@@ -8,7 +8,7 @@ import { LimitedContainer } from '../../../shared/components/containers/limitedC
 import { Screen } from '../../../shared/components/screen/Screen';
 import Table from '../../../shared/components/table/Table';
 import { RoutesEnum } from '../../../shared/enums/route.enum';
-import { CategoryType } from '../../product/types/CategoryType';
+import { CategoryType } from '../../../shared/types/CategoryType';
 import { useCategory } from '../hooks/useCategory';
 
 const columns: TableProps<CategoryType>['columns'] = [

@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../../../shared/components/buttons/Button';
 import { InputDefault } from '../../../shared/components/inputs/InputDefault';
 import { RoutesEnum } from '../../../shared/enums/route.enum';
-import { useGlobalContext } from '../../../shared/hooks/UseGlobalContext';
 import { useRequest } from '../../../shared/hooks/useRequest';
 import { SVGHome } from '../../../shared/icons/SVGHome';
+import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 import {
   BackgroundImage,
   ContainerLogin,
@@ -20,7 +20,7 @@ export const LoginScreen = () => {
   const [password, setPassword] = useState('');
   const { loading, authRequest } = useRequest();
   const navigate = useNavigate();
-  const { user } = useGlobalContext();
+  const { user } = useGlobalReducer();
 
   useEffect(() => {
     if (user) {

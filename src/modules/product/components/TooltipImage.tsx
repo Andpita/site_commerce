@@ -1,6 +1,6 @@
 import { TooltipCustom } from '../../../shared/components/tooltip/TooltipCustom';
-import { ImageProduct } from '../styles/tooltypeImage.style';
-import { ProductType } from '../types/ProductType';
+import { ImageProduct } from '../../../shared/components/tooltip/tooltypeImage.style';
+import { ProductType } from '../../../shared/types/ProductType';
 
 interface TooltipImageProps {
   product: ProductType;

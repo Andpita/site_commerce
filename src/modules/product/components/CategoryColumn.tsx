@@ -1,6 +1,6 @@
 import { Tag } from 'antd';
 
-import { CategoryType } from '../types/CategoryType';
+import { CategoryType } from '../../../shared/types/CategoryType';
 
 interface CategoryColumnProps {
   category?: CategoryType;

@@ -1,6 +1,6 @@
 import { NavigateFunction } from 'react-router-dom';
 
-import { UserType } from '../../../modules/login/types/UserType';
+import { UserType } from '../../types/UserType';
 import { AUTHORIZATION_KEY } from '../../constants/authorizationConstants';
 import { URL_USER } from '../../constants/urls';
 import { RoutesEnum } from '../../enums/route.enum';

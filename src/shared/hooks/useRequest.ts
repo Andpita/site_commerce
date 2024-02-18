@@ -1,15 +1,15 @@
 import { useState } from 'react';
 
-import { AuthType } from '../../modules/login/types/AuthType';
+import { useGlobalReducer } from '../../store/reducers/globalReducer/useGlobalReducer';
 import { ERROR_INVALID_PASSWORD } from '../constants/errorStatus';
 import { URL_AUTH } from '../constants/urls';
 import { setAuthorizationToken } from '../functions/connections/auth';
 import ConnectionAPI, { ConnectionAPIPost } from '../functions/connections/connectAPI';
-import { useGlobalContext } from './UseGlobalContext';
+import { AuthType } from '../types/AuthType';
 
 export const useRequest = () => {
   const [loading, setLoading] = useState(false);
-  const { setNotification, setUser } = useGlobalContext();
+  const { setNotification, setUser } = useGlobalReducer();
 
   const request = async <T>(
     url: string,

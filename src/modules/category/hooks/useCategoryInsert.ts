@@ -6,20 +6,20 @@ import { InsertCategory } from '../../../shared/dto/insertCategory';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { RoutesEnum } from '../../../shared/enums/route.enum';
 import { ConnectionAPIPost } from '../../../shared/functions/connections/connectAPI';
-import { useDataContext } from '../../../shared/hooks/UseDataContext';
-import { useGlobalContext } from '../../../shared/hooks/UseGlobalContext';
 import { useRequest } from '../../../shared/hooks/useRequest';
+import { useCategoryReducer } from '../../../store/reducers/categoryReducer/useCategoryReducer';
+import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 
 export const useCategoryInsert = () => {
   const [loading, setLoading] = useState(false);
   const [disableButton, setDisableButton] = useState(true);
-  const { setNotification } = useGlobalContext();
+  const { setNotification } = useGlobalReducer();
   const navigate = useNavigate();
   const [category, setCategory] = useState<InsertCategory>({
     name: '',
   });
   const { request } = useRequest();
-  const { setCategories } = useDataContext();
+  const { setCategories } = useCategoryReducer();
 
   useEffect(() => {
     if (category.name !== '') {
