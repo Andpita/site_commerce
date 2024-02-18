@@ -1,10 +1,12 @@
 import { Button } from '../../../shared/components/buttons/Button';
 import { LimitedContainer } from '../../../shared/components/containers/limitedContainers.styled';
-import { DisplayFlex } from '../../../shared/components/displays/display.styled';
+import {
+  DisplayFlexCenter,
+  DisplayFlexEvenly,
+} from '../../../shared/components/displays/display.styled';
 import { InputDefault } from '../../../shared/components/inputs/InputDefault';
 import { Screen } from '../../../shared/components/screen/Screen';
 import { RoutesEnum } from '../../../shared/enums/route.enum';
-import { ContainerInsertProduct } from '../../product/styles/productInsert.style';
 import { useCategoryInsert } from '../hooks/useCategoryInsert';
 
 export const CategoryInsert = () => {
@@ -26,7 +28,7 @@ export const CategoryInsert = () => {
 
   return (
     <Screen listBreadcrumb={listBreadcrumb}>
-      <ContainerInsertProduct>
+      <DisplayFlexCenter>
         <LimitedContainer width={400}>
           <InputDefault
             onChange={(event) => handleChange(event, 'name')}
@@ -35,7 +37,7 @@ export const CategoryInsert = () => {
             placeholder="Camisa"
             margin="0px 0px 16px 0px"
           />
-          <DisplayFlex>
+          <DisplayFlexEvenly>
             <LimitedContainer width={120}>
               <Button
                 loading={loading}
@@ -51,9 +53,9 @@ export const CategoryInsert = () => {
                 Cancelar
               </Button>
             </LimitedContainer>
-          </DisplayFlex>
+          </DisplayFlexEvenly>
         </LimitedContainer>
-      </ContainerInsertProduct>
+      </DisplayFlexCenter>
     </Screen>
   );
 };

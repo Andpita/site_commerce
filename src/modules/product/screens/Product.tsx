@@ -80,7 +80,7 @@ export const Product = () => {
     } else {
       setProductsFiltered([
         ...productsFiltered.filter((product) => {
-          return product.name.includes(value);
+          product.name.toUpperCase().includes(value.toUpperCase());
         }),
       ]);
     }

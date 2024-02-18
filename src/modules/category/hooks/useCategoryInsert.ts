@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 import { URL_CATEGORY } from '../../../shared/constants/urls';
 import { InsertCategory } from '../../../shared/dto/insertCategory';
+import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { RoutesEnum } from '../../../shared/enums/route.enum';
 import { ConnectionAPIPost } from '../../../shared/functions/connections/connectAPI';
+import { useDataContext } from '../../../shared/hooks/UseDataContext';
 import { useGlobalContext } from '../../../shared/hooks/UseGlobalContext';
+import { useRequest } from '../../../shared/hooks/useRequest';
 
 export const useCategoryInsert = () => {
   const [loading, setLoading] = useState(false);
@@ -15,6 +18,8 @@ export const useCategoryInsert = () => {
   const [category, setCategory] = useState<InsertCategory>({
     name: '',
   });
+  const { request } = useRequest();
+  const { setCategories } = useDataContext();
 
   useEffect(() => {
     if (category.name !== '') {
@@ -37,8 +42,8 @@ export const useCategoryInsert = () => {
 
   const handleSubmit = async () => {
     setLoading(true);
-    console.log(category);
-    const teste = await ConnectionAPIPost(URL_CATEGORY, category)
+
+    await ConnectionAPIPost(URL_CATEGORY, category)
       .then(() => {
         setNotification('success', 'Sucesso!', 'Categoria adicionada com sucesso!');
         navigate(RoutesEnum.CATEGORY);
@@ -47,8 +52,8 @@ export const useCategoryInsert = () => {
         setNotification('error', e.message);
         navigate(RoutesEnum.CATEGORY);
       })
-      .finally(() => {
-        console.log(teste);
+      .finally(async () => {
+        await request(URL_CATEGORY, MethodsEnum.GET, setCategories);
         setLoading(false);
       });
   };

@@ -34,7 +34,7 @@ const columns: TableProps<CategoryType>['columns'] = [
 ];
 
 export const Category = () => {
-  const { categories } = useCategory();
+  const { categories, handleSearchCategory } = useCategory();
   const navigate = useNavigate();
 
   const listBreadcrumb = [
@@ -54,11 +54,7 @@ export const Category = () => {
     <Screen listBreadcrumb={listBreadcrumb}>
       <BoxButton>
         <LimitedContainer width={320}>
-          <Search
-            placeholder="Buscar Categoria..."
-            onSearch={() => alert('Disabled')}
-            enterButton
-          />
+          <Search placeholder="Buscar Categoria..." onSearch={handleSearchCategory} enterButton />
         </LimitedContainer>
         <LimitedContainer width={160}>
           <Button type="primary" onClick={handleCategoryInsert}>

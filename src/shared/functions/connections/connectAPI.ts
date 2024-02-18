@@ -1,11 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
-import {
-  ERROR_ACCESS_DANIED,
-  ERROR_CONNECTION,
-  ERROR_NOT_FOUND,
-  ERROR_SERVICE,
-} from '../../constants/errorStatus';
+import { ERROR_ACCESS_DANIED, ERROR_NOT_FOUND, ERROR_SERVICE } from '../../constants/errorStatus';
 import { MethodsEnum } from '../../enums/methods.enum';
 import { getAuthorizationToken } from './auth';
 
@@ -34,6 +29,8 @@ export default class ConnectionAPI {
     return await ConnectionAPI.call<T>(url, method, body).catch((e) => {
       if (e.response) {
         switch (e.response.status) {
+          default:
+            throw new Error(e.response.data.message);
           case 401:
             throw new Error(ERROR_ACCESS_DANIED);
           case 403:
@@ -42,8 +39,6 @@ export default class ConnectionAPI {
             throw new Error(ERROR_NOT_FOUND);
           case 500:
             throw new Error(ERROR_SERVICE);
-          default:
-            throw new Error(ERROR_CONNECTION);
         }
       }
       throw new Error('Unknown Error');
