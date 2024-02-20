@@ -66,6 +66,7 @@ export const Menu = () => {
       key: 'order',
       label: 'Pedidos',
       icon: <SafetyCertificateOutlined />,
+      onClick: () => navigate(RoutesEnum.ORDER),
     },
     {
       key: 'user',
