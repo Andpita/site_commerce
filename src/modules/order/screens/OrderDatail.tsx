@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { Screen } from '../../../shared/components/screen/Screen';
 import { RoutesEnum } from '../../../shared/enums/route.enum';
+import { useOrderDatails } from '../hooks/useOrderDatail';
 
 const user: DescriptionsProps['items'] = [
   {
@@ -104,7 +105,7 @@ const produtos: DescriptionsProps['items'] = [
     span: 2,
   },
   {
-    key: 'amount',
+    key: '3',
     label: 'Qtd. Item',
     children: 2,
   },
@@ -122,7 +123,9 @@ const produtos: DescriptionsProps['items'] = [
 
 export const OrderDetail = () => {
   const { orderId } = useParams();
-  console.log(orderId);
+  const { orderById } = useOrderDatails(orderId);
+
+  console.log(orderById);
 
   const listBreadcrumb = [
     {
