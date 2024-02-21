@@ -57,15 +57,20 @@ export const Order = () => {
       name: 'PEDIDOS',
     },
   ];
+
   return (
     <Screen listBreadcrumb={listBreadcrumb}>
       <BoxButton>
         <LimitedContainer width={320}>
-          <Search placeholder="Buscar Order..." onSearch={() => alert('Disabled')} enterButton />
+          <Search
+            placeholder="Buscar Categoria..."
+            onSearch={() => alert('disabled')}
+            enterButton
+          />
         </LimitedContainer>
         <LimitedContainer width={160}>
-          <Button disabled type="primary" onClick={() => alert('Disabled')}>
-            Disabled
+          <Button type="primary" onClick={() => alert('disabled')}>
+            Inserir
           </Button>
         </LimitedContainer>
       </BoxButton>

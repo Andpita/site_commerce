@@ -4,6 +4,7 @@ import categoryReducer from './reducers/categoryReducer';
 import globalReducer from './reducers/globalReducer';
 import orderReducer from './reducers/orderReducer';
 import productReducer from './reducers/productsReducer';
+import usersReducer from './reducers/usersReducer';
 
 export type RootState = ReturnType<typeof store.getState>;
 
@@ -13,5 +14,6 @@ export const store = configureStore({
     globalReducer,
     orderReducer,
     productReducer,
+    usersReducer,
   },
 });

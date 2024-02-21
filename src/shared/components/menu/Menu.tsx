@@ -72,6 +72,7 @@ export const Menu = () => {
       key: 'user',
       label: 'Clientes',
       icon: <UserOutlined />,
+      onClick: () => navigate(RoutesEnum.USER_ALL),
     },
   ];
   return (
