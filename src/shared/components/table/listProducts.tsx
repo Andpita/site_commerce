@@ -1,5 +1,6 @@
 import { ColumnsType } from 'antd/es/table';
 
+import { convertMoney } from '../../functions/money';
 import { OrderProductType } from '../../types/OrderProductType';
 import Table from './Table';
 
@@ -26,13 +27,13 @@ const columns: ColumnsType<OrderProductType> = [
     title: 'Preço',
     dataIndex: 'price',
     key: 'price',
-    render: (text) => <a>{text}</a>,
+    render: (text) => <a>{convertMoney(text)}</a>,
   },
   {
     title: 'Total',
     dataIndex: 'total',
     key: 'total',
-    render: (_, target) => <a>{target.price * target.amount}</a>,
+    render: (_, target) => <a>{convertMoney(target.price * target.amount)}</a>,
   },
 ];
 

@@ -6,7 +6,11 @@ import Loading from '../../../shared/components/loading/Loading';
 import { Screen } from '../../../shared/components/screen/Screen';
 import ListOrderProduct from '../../../shared/components/table/listProducts';
 import { RoutesEnum } from '../../../shared/enums/route.enum';
+import { cepMask } from '../../../shared/functions/cepMask';
+import { cpfMask } from '../../../shared/functions/cpfMask';
 import { dataModify, hourModify } from '../../../shared/functions/dateFunctions';
+import { convertMoney } from '../../../shared/functions/money';
+import { phoneMask } from '../../../shared/functions/phoneMask';
 import { useOrderDatails } from '../hooks/useOrderDatail';
 
 export const OrderDetail = () => {
@@ -36,7 +40,7 @@ export const OrderDetail = () => {
     {
       key: '2',
       label: 'CPF',
-      children: orderById?.user?.cpf,
+      children: cpfMask(orderById?.user?.cpf),
       span: 1,
     },
     {
@@ -48,7 +52,7 @@ export const OrderDetail = () => {
     {
       key: '4',
       label: 'Telefone',
-      children: orderById?.user?.phone,
+      children: phoneMask(orderById?.user?.phone),
     },
     {
       key: '5',
@@ -64,7 +68,7 @@ export const OrderDetail = () => {
     {
       key: '7',
       label: 'CEP',
-      children: orderById?.address?.cep,
+      children: cepMask(orderById?.address?.cep),
     },
     {
       key: '8',
@@ -87,7 +91,7 @@ export const OrderDetail = () => {
     },
     {
       key: '2',
-      label: 'Data',
+      label: 'Hora',
       children: orderById ? hourModify(orderById?.date) : '0',
       span: 2,
     },
@@ -116,17 +120,21 @@ export const OrderDetail = () => {
     {
       key: '6',
       label: 'Preço',
-      children: `R$ ${orderById?.payment?.price.toFixed(2)}`,
+      children: convertMoney(orderById?.payment?.price || 0),
     },
     {
       key: '7',
       label: 'Desconto',
-      children: `R$ ${orderById?.payment?.discount.toFixed(2)}`,
+      children: convertMoney(orderById?.payment?.discount || 0),
     },
     {
       key: '8',
       label: 'Preço Final',
-      children: `R$ ${orderById?.payment?.finalPrice.toFixed(2)}`,
+      children: convertMoney(orderById?.payment?.finalPrice || 0),
+      style: {
+        background: 'khaki',
+        border: '500',
+      },
     },
   ];
 
