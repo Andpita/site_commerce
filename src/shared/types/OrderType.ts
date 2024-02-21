@@ -1,4 +1,6 @@
 import { AddressType } from './AddressType';
+import { OrderProductType } from './OrderProductType';
+import { PaymentType } from './PaymentType';
 import { UserType } from './UserType';
 
 export interface OrderType {
@@ -6,6 +8,8 @@ export interface OrderType {
   userId: number;
   paymentId: number;
   orderId: number;
-  user: UserType;
-  address: AddressType;
+  user?: UserType;
+  address?: AddressType;
+  payment?: PaymentType;
+  orderProduct?: OrderProductType[];
 }

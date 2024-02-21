@@ -7,7 +7,7 @@ import { useOrderReducer } from '../../../store/reducers/orderReducer/useOrderRe
 
 export const useOrderDatails = (orderId?: string) => {
   const { orderById, setOrderById } = useOrderReducer();
-  const { request } = useRequest();
+  const { request, loading } = useRequest();
 
   useEffect(() => {
     request(URL_ORDER_ID.replace('{orderId}', `${orderId}`), MethodsEnum.GET, setOrderById);
@@ -15,5 +15,6 @@ export const useOrderDatails = (orderId?: string) => {
 
   return {
     orderById,
+    loading,
   };
 };
