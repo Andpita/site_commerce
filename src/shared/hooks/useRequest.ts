@@ -41,6 +41,11 @@ export const useRequest = () => {
 
     await ConnectionAPIPost<AuthType>(URL_AUTH, body)
       .then((result) => {
+        if (result.user.typeUser === 1) {
+          setNotification('error', ERROR_INVALID_PASSWORD);
+          return;
+        }
+
         setNotification('success', `Você fez Login!`);
         setAuthorizationToken(result.accessToken);
         setUser(result.user);

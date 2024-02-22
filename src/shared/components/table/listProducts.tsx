@@ -46,7 +46,7 @@ const ListOrderProduct = ({ ordersProduct }: ListOrderProductProps) => {
     return null;
   }
 
-  return <Table columns={columns} dataSource={ordersProduct} key={'id'} />;
+  return <Table columns={columns} dataSource={ordersProduct} key={'productId'} />;
 };
 
 export default ListOrderProduct;

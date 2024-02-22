@@ -1,65 +1,57 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { URL_PRODUCTS } from '../../../shared/constants/urls';
-import { InsertProduct } from '../../../shared/dto/insertProduct';
+import { URL_USER_INSERT_ADM } from '../../../shared/constants/urls';
+import { InsertUser } from '../../../shared/dto/insertUser';
 import { RoutesEnum } from '../../../shared/enums/route.enum';
 import { ConnectionAPIPost } from '../../../shared/functions/connections/connectAPI';
 import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 
-export const useInsertProduct = () => {
+export const useUserInsert = () => {
   const [loading, setLoading] = useState(false);
   const [disableButton, setDisableButton] = useState(true);
   const { setNotification } = useGlobalReducer();
   const navigate = useNavigate();
-  const [product, setProduct] = useState<InsertProduct>({
+  const [userAdm, setUserAdm] = useState<InsertUser>({
     name: '',
-    price: 0,
-    image: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    cpf: '',
+    password: '',
   });
 
   useEffect(() => {
-    if (product.name && product.image && product.categoryId && product.price > 0) {
+    if (userAdm.name && userAdm.lastName && userAdm.email && userAdm.cpf && userAdm.phone) {
       setDisableButton(false);
     } else {
       setDisableButton(true);
     }
-  }, [product]);
+  }, [userAdm]);
 
-  const handleChangeSelect = (value: string) => {
-    setProduct({
-      ...product,
-      categoryId: Number(value),
-    });
-  };
-
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    key: string,
-    price?: boolean,
-  ) => {
-    setProduct({
-      ...product,
-      [key]: price ? Number(event.target.value) : event.target.value,
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>, key: string) => {
+    setUserAdm({
+      ...userAdm,
+      [key]: event.target.value,
     });
   };
 
   const handleSubmit = async () => {
     setLoading(true);
-    await ConnectionAPIPost(URL_PRODUCTS, product)
+    await ConnectionAPIPost(URL_USER_INSERT_ADM, userAdm)
       .then(() => {
         setNotification('success', 'Sucesso!', 'Produto adicionado com sucesso!');
-        navigate(RoutesEnum.PRODUCT);
+        navigate(RoutesEnum.USER_ALL);
       })
       .catch((e: Error) => {
         setNotification('error', e.message);
-        navigate(RoutesEnum.PRODUCT);
+        navigate(RoutesEnum.USER_ALL);
       })
       .finally(() => setLoading(false));
   };
 
   const handleClickcancel = () => {
-    navigate(RoutesEnum.PRODUCT);
+    navigate(RoutesEnum.USER_ALL);
   };
 
   return {
@@ -68,7 +60,6 @@ export const useInsertProduct = () => {
     handleClickcancel,
     handleSubmit,
     handleChange,
-    handleChangeSelect,
-    product,
+    userAdm,
   };
 };

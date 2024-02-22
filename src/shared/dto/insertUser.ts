@@ -1,9 +1,8 @@
-export interface UserType {
-  id: number;
+export interface InsertUser {
   name: string;
   email: string;
   phone: string;
   cpf: string;
-  typeUser?: number;
   lastName?: string;
+  password: string;
 }

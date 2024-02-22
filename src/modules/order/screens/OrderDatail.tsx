@@ -40,7 +40,7 @@ export const OrderDetail = () => {
     {
       key: '2',
       label: 'CPF',
-      children: cpfMask(orderById?.user?.cpf),
+      children: cpfMask(orderById?.user?.cpf || ''),
       span: 1,
     },
     {

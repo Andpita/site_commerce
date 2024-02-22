@@ -8,4 +8,5 @@ export enum RoutesEnum {
   ORDER = '/order',
   ORDER_ID = '/order/:orderId',
   USER_ALL = '/user/all',
+  USER_INSERT_ADM = '/user/admin',
 }
