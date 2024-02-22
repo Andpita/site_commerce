@@ -25,7 +25,7 @@ export const useCategory = () => {
       setCategoriesFiltered([...categories]);
     } else {
       setCategoriesFiltered([
-        ...categoriesFiltered.filter((category) => {
+        ...categories.filter((category) => {
           return category.name.toUpperCase().includes(value.toUpperCase());
         }),
       ]);

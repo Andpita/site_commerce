@@ -46,7 +46,7 @@ const columns: TableProps<UserType>['columns'] = [
 ];
 
 export const Users = () => {
-  const { users, loading } = useUsers();
+  const { users, loading, onSearch } = useUsers();
 
   const listBreadcrumb = [
     {
@@ -61,11 +61,7 @@ export const Users = () => {
     <Screen listBreadcrumb={listBreadcrumb}>
       <BoxButton>
         <LimitedContainer width={320}>
-          <Search
-            placeholder="Buscar Categoria..."
-            onSearch={() => alert('disabled')}
-            enterButton
-          />
+          <Search placeholder="Buscar usuário..." onSearch={onSearch} enterButton />
         </LimitedContainer>
         <LimitedContainer width={160}>
           <Button type="primary" onClick={() => alert('disabled')}>

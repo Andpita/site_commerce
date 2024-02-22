@@ -63,13 +63,14 @@ export const Order = () => {
       <BoxButton>
         <LimitedContainer width={320}>
           <Search
-            placeholder="Buscar Categoria..."
+            disabled
+            placeholder="Buscar comprador..."
             onSearch={() => alert('disabled')}
             enterButton
           />
         </LimitedContainer>
         <LimitedContainer width={160}>
-          <Button type="primary" onClick={() => alert('disabled')}>
+          <Button disabled type="primary" onClick={() => alert('disabled')}>
             Inserir
           </Button>
         </LimitedContainer>
