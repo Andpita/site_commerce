@@ -1,3 +1,5 @@
+import { useParams } from 'react-router-dom';
+
 import { Button } from '../../../shared/components/buttons/Button';
 import { LimitedContainer } from '../../../shared/components/containers/limitedContainers.styled';
 import {
@@ -15,6 +17,7 @@ import { useInsertProduct } from '../hooks/useProductInsert';
 
 export const ProductInsert = () => {
   const { categories } = useCategory();
+  const { id } = useParams();
 
   const {
     handleChange,
@@ -24,7 +27,7 @@ export const ProductInsert = () => {
     handleSubmit,
     loading,
     product,
-  } = useInsertProduct();
+  } = useInsertProduct(id);
 
   const listBreadcrumb = [
     {
@@ -35,7 +38,7 @@ export const ProductInsert = () => {
       navigateTo: RoutesEnum.PRODUCT,
     },
     {
-      name: 'INSERIR PRODUTO',
+      name: !id ? 'INSERIR PRODUTO' : 'EDITAR PRODUTO',
     },
   ];
 

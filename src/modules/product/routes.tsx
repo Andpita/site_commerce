@@ -11,4 +11,8 @@ export const ProductRoutes = [
     path: RoutesEnum.PRODUCT_INSERT,
     element: <ProductInsert />,
   },
+  {
+    path: RoutesEnum.PRODUCT_ID,
+    element: <ProductInsert />,
+  },
 ];

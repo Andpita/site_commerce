@@ -2,6 +2,7 @@ export enum RoutesEnum {
   LOGIN = '/login',
   HOME = '/',
   PRODUCT = '/product',
+  PRODUCT_ID = '/product/:id',
   PRODUCT_INSERT = '/product/insert',
   CATEGORY = '/category',
   CATEGORY_INSERT = '/category/insert',

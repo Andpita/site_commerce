@@ -48,8 +48,9 @@ export const useProducts = () => {
   };
 
   const handleEditProduct = (productId: number) => {
-    console.log(productId);
-    return null;
+    const id = productId.toString();
+
+    navigate(RoutesEnum.PRODUCT_ID.replace(':id', id));
   };
 
   return {
