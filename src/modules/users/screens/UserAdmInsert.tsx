@@ -35,42 +35,42 @@ export const UserAdmInsert = () => {
             value={userAdm.name}
             title="Nome"
             placeholder="Anderson Silva"
-            margin="0px 0px 16px 0px"
+            margin="0px 0px 8px 0px"
           />
           <InputDefault
             onChange={(event) => handleChange(event, 'lastName')}
             value={userAdm.lastName}
             title="Apelido"
             placeholder="Pita"
-            margin="0px 0px 16px 0px"
+            margin="0px 0px 8px 0px"
           />
           <InputDefault
             onChange={(event) => handleChange(event, 'email')}
             value={userAdm.email}
             title="E-mail"
             placeholder="email@email.com"
-            margin="0px 0px 16px 0px"
+            margin="0px 0px 8px 0px"
           />
           <InputDefault
             onChange={(event) => handleChange(event, 'cpf')}
             value={userAdm.cpf}
             title="CPF"
             placeholder="000.000.000-00"
-            margin="0px 0px 16px 0px"
+            margin="0px 0px 8px 0px"
           />
           <InputDefault
             onChange={(event) => handleChange(event, 'phone')}
             value={userAdm.phone}
             title="Telefone"
             placeholder="48999001122"
-            margin="0px 0px 16px 0px"
+            margin="0px 0px 8px 0px"
           />
           <InputDefault
             onChange={(event) => handleChange(event, 'password')}
             value={userAdm.password}
             title="Senha para primeiro acesso"
             placeholder="123@abc"
-            margin="0px 0px 16px 0px"
+            margin="0px 0px 8px 0px"
           />
           <DisplayFlexEvenly>
             <LimitedContainer width={120}>

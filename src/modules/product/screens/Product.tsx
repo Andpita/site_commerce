@@ -1,71 +1,22 @@
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { TableProps } from 'antd';
 import Search from 'antd/es/input/Search';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useMemo } from 'react';
 
 import { BoxButton } from '../../../shared/components/box/box.styled';
 import { Button } from '../../../shared/components/buttons/Button';
 import { LimitedContainer } from '../../../shared/components/containers/limitedContainers.styled';
 import { Screen } from '../../../shared/components/screen/Screen';
 import Table from '../../../shared/components/table/Table';
-import { URL_PRODUCTS } from '../../../shared/constants/urls';
-import { MethodsEnum } from '../../../shared/enums/methods.enum';
-import { RoutesEnum } from '../../../shared/enums/route.enum';
 import { convertMoney } from '../../../shared/functions/money';
-import { useRequest } from '../../../shared/hooks/useRequest';
 import { ProductType } from '../../../shared/types/ProductType';
-import { useProductReducer } from '../../../store/reducers/productsReducer/useProductReducer';
 import { CategoryColumn } from '../components/CategoryColumn';
 import { TooltipImage } from '../components/TooltipImage';
-
-const columns: TableProps<ProductType>['columns'] = [
-  {
-    title: 'Id',
-    dataIndex: 'id',
-    key: 'id',
-    render: (_, product) => <TooltipImage product={product} />,
-  },
-  {
-    title: 'Nome',
-    dataIndex: 'name',
-    key: 'name',
-    sorter: (a, b) => a.name.localeCompare(b.name),
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: 'Preço',
-    dataIndex: 'price',
-    key: 'price',
-
-    render: (_, product) => <a>{convertMoney(product.price)}</a>,
-  },
-  {
-    title: 'Categoria',
-    dataIndex: 'category',
-    key: 'category',
-    render: (_, product) => <CategoryColumn category={product.category} />,
-  },
-];
+import { useProducts } from '../hooks/useProducts';
 
 export const Product = () => {
-  const { request } = useRequest();
-  const navigate = useNavigate();
-
-  const { products, setProducts } = useProductReducer();
-
-  const [productsFiltered, setProductsFiltered] = useState<ProductType[]>([]);
-
-  useEffect(() => {
-    setProductsFiltered([...products]);
-  }, [products]);
-
-  useEffect(() => {
-    request<ProductType[]>(URL_PRODUCTS, MethodsEnum.GET, setProducts);
-  }, []);
-
-  const handleOnClick = () => {
-    navigate(RoutesEnum.PRODUCT_INSERT);
-  };
+  const { handleOnClick, onSearch, productsFiltered, handleDeleteProduct, handleEditProduct } =
+    useProducts();
 
   const listBreadcrumb = [
     {
@@ -76,17 +27,63 @@ export const Product = () => {
     },
   ];
 
-  const onSearch = (value: string) => {
-    if (!value) {
-      setProductsFiltered([...products]);
-    } else {
-      setProductsFiltered([
-        ...products.filter((product: ProductType) => {
-          return product.name.toUpperCase().includes(value.toUpperCase());
-        }),
-      ]);
-    }
-  };
+  const columns: TableProps<ProductType>['columns'] = useMemo(
+    () => [
+      {
+        title: 'Id',
+        dataIndex: 'id',
+        key: 'id',
+        render: (_, product) => <TooltipImage product={product} />,
+      },
+      {
+        title: 'Nome',
+        dataIndex: 'name',
+        key: 'name',
+        sorter: (a, b) => a.name.localeCompare(b.name),
+        render: (text) => <a>{text}</a>,
+      },
+      {
+        title: 'Preço',
+        dataIndex: 'price',
+        key: 'price',
+
+        render: (_, product) => <a>{convertMoney(product.price)}</a>,
+      },
+      {
+        title: 'Categoria',
+        dataIndex: 'category',
+        key: 'category',
+        render: (_, product) => <CategoryColumn category={product.category} />,
+      },
+      {
+        title: 'Action',
+        dataIndex: '',
+        key: 'x',
+        render: (_, product) => (
+          <>
+            <Button
+              width="50px"
+              marginLeft="20px"
+              onClick={() => handleEditProduct(product.id)}
+              type="primary"
+            >
+              <EditOutlined />
+            </Button>
+            <Button
+              width="50px"
+              marginLeft="20px"
+              onClick={() => handleDeleteProduct(product.id)}
+              danger
+              type="primary"
+            >
+              <DeleteOutlined />
+            </Button>
+          </>
+        ),
+      },
+    ],
+    [],
+  );
 
   return (
     <Screen listBreadcrumb={listBreadcrumb}>

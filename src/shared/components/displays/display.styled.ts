@@ -11,7 +11,6 @@ export const DisplayFlexCenter = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  min-height: 20vh;
   //
   align-items: center;
 `;
