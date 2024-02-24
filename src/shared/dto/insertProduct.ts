@@ -1,4 +1,5 @@
 export interface InsertProduct {
+  id?: number;
   name: string;
   price: number;
   image: string;

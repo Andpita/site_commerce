@@ -17,6 +17,7 @@ const columns: TableProps<OrderType>['columns'] = [
     title: 'Id_Pedido',
     dataIndex: 'orderId',
     key: 'orderId',
+    width: 100,
     render: (text) => <a>{text}</a>,
   },
   {

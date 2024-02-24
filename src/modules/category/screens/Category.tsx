@@ -16,6 +16,7 @@ const columns: TableProps<CategoryType>['columns'] = [
     title: 'Id',
     dataIndex: 'id',
     key: 'id',
+    width: 100,
     render: (text) => <a>{text}</a>,
   },
   {

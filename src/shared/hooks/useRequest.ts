@@ -16,6 +16,7 @@ export const useRequest = () => {
     method: string,
     saveGlobal?: (obj: T) => void,
     body?: unknown,
+    message?: string,
   ): Promise<T | undefined> => {
     setLoading(true);
 
@@ -24,11 +25,16 @@ export const useRequest = () => {
         if (saveGlobal) {
           saveGlobal(result);
         }
+        if (message) {
+          setNotification('success', message);
+        }
 
         return result;
       })
       .catch((error: Error) => {
-        setNotification('error', error.message);
+        if (message) {
+          setNotification('error', error.message);
+        }
         return undefined;
       })
       .finally(() => setLoading(false));
@@ -44,9 +50,10 @@ export const useRequest = () => {
         if (result.user.typeUser === 1) {
           setNotification('error', ERROR_INVALID_PASSWORD);
           return;
+        } else {
+          setNotification('success', `Você fez Login!`);
         }
 
-        setNotification('success', `Você fez Login!`);
         setAuthorizationToken(result.accessToken);
         setUser(result.user);
         location.href = '/product';

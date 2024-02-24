@@ -6,6 +6,7 @@ import { useMemo } from 'react';
 import { BoxButton } from '../../../shared/components/box/box.styled';
 import { Button } from '../../../shared/components/buttons/Button';
 import { LimitedContainer } from '../../../shared/components/containers/limitedContainers.styled';
+import { DisplayFlexCenter } from '../../../shared/components/displays/display.styled';
 import { Screen } from '../../../shared/components/screen/Screen';
 import Table from '../../../shared/components/table/Table';
 import { convertMoney } from '../../../shared/functions/money';
@@ -33,6 +34,7 @@ export const Product = () => {
         title: 'Id',
         dataIndex: 'id',
         key: 'id',
+        width: 100,
         render: (_, product) => <TooltipImage product={product} />,
       },
       {
@@ -46,39 +48,42 @@ export const Product = () => {
         title: 'Preço',
         dataIndex: 'price',
         key: 'price',
-
         render: (_, product) => <a>{convertMoney(product.price)}</a>,
       },
       {
         title: 'Categoria',
         dataIndex: 'category',
         key: 'category',
+        width: 200,
         render: (_, product) => <CategoryColumn category={product.category} />,
       },
       {
         title: 'Action',
         dataIndex: '',
         key: 'x',
+        width: 200,
         render: (_, product) => (
-          <>
+          <DisplayFlexCenter>
             <Button
-              width="50px"
               marginLeft="20px"
               onClick={() => handleEditProduct(product.id)}
               type="primary"
+              icon={<EditOutlined />}
+              style={{ fontSize: '10px', maxWidth: '80px', margin: '5px' }}
             >
-              <EditOutlined />
+              Editar
             </Button>
             <Button
-              width="50px"
               marginLeft="20px"
               onClick={() => handleDeleteProduct(product.id)}
               danger
               type="primary"
+              icon={<DeleteOutlined />}
+              style={{ fontSize: '10px', maxWidth: '80px', margin: '5px' }}
             >
-              <DeleteOutlined />
+              Apagar
             </Button>
-          </>
+          </DisplayFlexCenter>
         ),
       },
     ],

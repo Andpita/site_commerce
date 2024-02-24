@@ -5,45 +5,28 @@ import { URL_PRODUCTS, URL_PRODUCTS_ID } from '../../../shared/constants/urls';
 import { InsertProduct } from '../../../shared/dto/insertProduct';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { RoutesEnum } from '../../../shared/enums/route.enum';
-import { ConnectionAPIPost } from '../../../shared/functions/connections/connectAPI';
 import { useRequest } from '../../../shared/hooks/useRequest';
-import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 import { useProductReducer } from '../../../store/reducers/productsReducer/useProductReducer';
 
+const DEFAULT_PRODUCT: InsertProduct = {
+  name: '',
+  price: 0,
+  image: '',
+  weight: 0,
+  height: 0,
+  diameter: 0,
+  width: 0,
+  length: 0,
+  active: 1,
+};
+
 export const useInsertProduct = (productId?: string) => {
-  const [loading, setLoading] = useState(false);
   const [disableButton, setDisableButton] = useState(true);
-  const { setNotification } = useGlobalReducer();
   const navigate = useNavigate();
-  const { request } = useRequest();
+  const { request, loading: loadingRequest } = useRequest();
   const { product: productReducer, setProduct: setProductReducer } = useProductReducer();
-  const [product, setProduct] = useState<InsertProduct>({
-    name: '',
-    price: 0,
-    image: '',
-    weight: 0,
-    height: 0,
-    diameter: 0,
-    width: 0,
-    length: 0,
-    active: 1,
-  });
-
-  useEffect(() => {
-    console.log(productId);
-    if (productId) {
-      setProductReducer(undefined);
-      request(URL_PRODUCTS_ID.replace('{id}', productId), MethodsEnum.GET, setProductReducer);
-    }
-  }, [productId]);
-
-  useEffect(() => {
-    if (product.name && product.image && product.categoryId && product.price > 0) {
-      setDisableButton(false);
-    } else {
-      setDisableButton(true);
-    }
-  }, [product]);
+  const [product, setProduct] = useState<InsertProduct>(DEFAULT_PRODUCT);
+  const [loadingProduct, setLoadingProduct] = useState(false);
 
   useEffect(() => {
     if (productReducer) {
@@ -56,9 +39,33 @@ export const useInsertProduct = (productId?: string) => {
         length: productReducer.length,
         height: productReducer.height,
         diameter: productReducer.diameter,
+        categoryId: productReducer.category?.id,
       });
     }
   }, [productReducer]);
+
+  useEffect(() => {
+    if (product.name && product.image && product.categoryId && product.price > 0) {
+      setDisableButton(false);
+    } else {
+      setDisableButton(true);
+    }
+  }, [product]);
+
+  useEffect(() => {
+    const findProduct = async (id: string) => {
+      setLoadingProduct(true);
+      await request(URL_PRODUCTS_ID.replace('{id}', `${id}`), MethodsEnum.GET, setProductReducer);
+      setLoadingProduct(false);
+    };
+
+    if (productId) {
+      findProduct(productId);
+    } else {
+      setProduct(DEFAULT_PRODUCT);
+      setProductReducer(undefined);
+    }
+  }, [productId]);
 
   const handleChangeSelect = (value: string) => {
     setProduct({
@@ -79,17 +86,26 @@ export const useInsertProduct = (productId?: string) => {
   };
 
   const handleSubmit = async () => {
-    setLoading(true);
-    await ConnectionAPIPost(URL_PRODUCTS, product)
-      .then(() => {
-        setNotification('success', 'Sucesso!', 'Produto adicionado com sucesso!');
-        navigate(RoutesEnum.PRODUCT);
-      })
-      .catch((e: Error) => {
-        setNotification('error', e.message);
-        navigate(RoutesEnum.PRODUCT);
-      })
-      .finally(() => setLoading(false));
+    if (productId) {
+      console.log(product);
+      await request(
+        URL_PRODUCTS_ID.replace('{id}', productId),
+        MethodsEnum.PUT,
+        undefined,
+        product,
+        'Produto alterado com sucesso!',
+      );
+      navigate(RoutesEnum.PRODUCT);
+    } else {
+      await request(
+        URL_PRODUCTS,
+        MethodsEnum.POST,
+        undefined,
+        product,
+        'Produto criado com sucesso!',
+      );
+      navigate(RoutesEnum.PRODUCT);
+    }
   };
 
   const handleClickcancel = () => {
@@ -97,12 +113,13 @@ export const useInsertProduct = (productId?: string) => {
   };
 
   return {
-    loading,
     disableButton,
     handleClickcancel,
     handleSubmit,
     handleChange,
     handleChangeSelect,
     product,
+    loadingRequest,
+    loadingProduct,
   };
 };
