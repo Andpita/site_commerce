@@ -1,22 +1,11 @@
 import { Modal } from 'antd';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { logout } from '../../functions/connections/auth';
+import { useModal } from '../../hooks/useModal';
 import { ContainerHeader, LogoutIcon } from './header.style';
 
 export const Header = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
-  const navigate = useNavigate();
+  const { isModalOpen, showModal, handleCancel, navigate } = useModal();
 
   return (
     <>
@@ -29,7 +18,7 @@ export const Header = () => {
         <p>Tem certeza que deseja sair?</p>
       </Modal>
       <ContainerHeader>
-        <LogoutIcon onClick={showModal} />
+        <LogoutIcon onClick={() => showModal()} />
       </ContainerHeader>
     </>
   );

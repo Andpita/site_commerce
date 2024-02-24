@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { TableProps } from 'antd';
+import { Modal, TableProps } from 'antd';
 import Search from 'antd/es/input/Search';
 import { useMemo } from 'react';
 
@@ -10,6 +10,7 @@ import { DisplayFlexCenter } from '../../../shared/components/displays/display.s
 import { Screen } from '../../../shared/components/screen/Screen';
 import Table from '../../../shared/components/table/Table';
 import { convertMoney } from '../../../shared/functions/money';
+import { useModal } from '../../../shared/hooks/useModal';
 import { ProductType } from '../../../shared/types/ProductType';
 import { CategoryColumn } from '../components/CategoryColumn';
 import { TooltipImage } from '../components/TooltipImage';
@@ -75,7 +76,7 @@ export const Product = () => {
             </Button>
             <Button
               marginLeft="20px"
-              onClick={() => handleDeleteProduct(product.id)}
+              onClick={() => showModal(product.id)}
               danger
               type="primary"
               icon={<DeleteOutlined />}
@@ -90,8 +91,20 @@ export const Product = () => {
     [],
   );
 
+  const { isModalOpen, handleCancel, showModal, id: idDelete } = useModal();
+
   return (
     <Screen listBreadcrumb={listBreadcrumb}>
+      <Modal
+        title="Atenção"
+        open={isModalOpen}
+        onOk={() => {
+          handleDeleteProduct(idDelete);
+        }}
+        onCancel={handleCancel}
+      >
+        <p>Tem certeza que deseja excluir o produto?</p>
+      </Modal>
       <BoxButton>
         <LimitedContainer width={320}>
           <Search placeholder="Buscar Produto..." onSearch={onSearch} enterButton />
