@@ -100,10 +100,11 @@ export const Product = () => {
         open={isModalOpen}
         onOk={() => {
           handleDeleteProduct(idDelete);
+          handleCancel();
         }}
         onCancel={handleCancel}
       >
-        <p>Tem certeza que deseja excluir o produto?</p>
+        <p>Tem certeza que deseja excluir essa categoria?</p>
       </Modal>
       <BoxButton>
         <LimitedContainer width={320}>

@@ -1,3 +1,5 @@
+import { useParams } from 'react-router-dom';
+
 import { Button } from '../../../shared/components/buttons/Button';
 import { LimitedContainer } from '../../../shared/components/containers/limitedContainers.styled';
 import {
@@ -5,13 +7,22 @@ import {
   DisplayFlexEvenly,
 } from '../../../shared/components/displays/display.styled';
 import { InputDefault } from '../../../shared/components/inputs/InputDefault';
+import Loading from '../../../shared/components/loading/Loading';
 import { Screen } from '../../../shared/components/screen/Screen';
 import { RoutesEnum } from '../../../shared/enums/route.enum';
 import { useCategoryInsert } from '../hooks/useCategoryInsert';
 
 export const CategoryInsert = () => {
-  const { category, loading, disableButton, handleClickcancel, handleChange, handleSubmit } =
-    useCategoryInsert();
+  const { id } = useParams();
+  const {
+    category,
+    loading,
+    disableButton,
+    handleClickcancel,
+    handleChange,
+    handleSubmit,
+    loadingCategory,
+  } = useCategoryInsert(id);
 
   const listBreadcrumb = [
     {
@@ -22,7 +33,7 @@ export const CategoryInsert = () => {
       navigateTo: RoutesEnum.CATEGORY,
     },
     {
-      name: 'INSERIR CATEGORIA',
+      name: id ? 'EDITAR CATEGORIA' : 'INSERIR CATEGORIA',
     },
   ];
 
@@ -30,30 +41,39 @@ export const CategoryInsert = () => {
     <Screen listBreadcrumb={listBreadcrumb}>
       <DisplayFlexCenter>
         <LimitedContainer width={400}>
-          <InputDefault
-            onChange={(event) => handleChange(event, 'name')}
-            value={category.name}
-            title="Categoria"
-            placeholder="Camisa"
-            margin="0px 0px 16px 0px"
-          />
-          <DisplayFlexEvenly>
-            <LimitedContainer width={120}>
-              <Button
-                loading={loading}
-                disabled={disableButton}
-                type="primary"
-                onClick={handleSubmit}
-              >
-                Inserir
-              </Button>
-            </LimitedContainer>
-            <LimitedContainer width={120}>
-              <Button danger type="primary" onClick={handleClickcancel}>
-                Cancelar
-              </Button>
-            </LimitedContainer>
-          </DisplayFlexEvenly>
+          {loadingCategory ? (
+            <DisplayFlexCenter>
+              <Loading size="large" />
+            </DisplayFlexCenter>
+          ) : (
+            <>
+              <InputDefault
+                defaultValue={id ? category.name : ''}
+                onChange={(event) => handleChange(event, 'name')}
+                value={category.name}
+                title="Categoria"
+                placeholder="Camisa"
+                margin="0px 0px 16px 0px"
+              />
+              <DisplayFlexEvenly>
+                <LimitedContainer width={120}>
+                  <Button
+                    loading={loading}
+                    disabled={disableButton}
+                    type="primary"
+                    onClick={handleSubmit}
+                  >
+                    {id ? 'Editar' : 'Inserir'}
+                  </Button>
+                </LimitedContainer>
+                <LimitedContainer width={120}>
+                  <Button danger type="primary" onClick={handleClickcancel}>
+                    Cancelar
+                  </Button>
+                </LimitedContainer>
+              </DisplayFlexEvenly>
+            </>
+          )}
         </LimitedContainer>
       </DisplayFlexCenter>
     </Screen>

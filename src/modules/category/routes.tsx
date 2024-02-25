@@ -11,4 +11,8 @@ export const CategoryRoutes = [
     path: RoutesEnum.CATEGORY_INSERT,
     element: <CategoryInsert />,
   },
+  {
+    path: RoutesEnum.CATEGORY_ID,
+    element: <CategoryInsert />,
+  },
 ];

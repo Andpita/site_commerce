@@ -5,5 +5,6 @@ export const URL_AUTH = 'http://localhost:4003/auth';
 export const URL_PRODUCTS = 'http://localhost:4003/product';
 export const URL_PRODUCTS_ID = 'http://localhost:4003/product/{id}';
 export const URL_CATEGORY = 'http://localhost:4003/category';
+export const URL_CATEGORY_ID = 'http://localhost:4003/category/{id}';
 export const URL_ORDER_ALL = 'http://localhost:4003/order/all';
 export const URL_ORDER_ID = 'http://localhost:4003/order/{orderId}';

@@ -1,25 +1,31 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { URL_CATEGORY } from '../../../shared/constants/urls';
+import { URL_CATEGORY, URL_CATEGORY_ID } from '../../../shared/constants/urls';
 import { InsertCategory } from '../../../shared/dto/insertCategory';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { RoutesEnum } from '../../../shared/enums/route.enum';
-import { ConnectionAPIPost } from '../../../shared/functions/connections/connectAPI';
 import { useRequest } from '../../../shared/hooks/useRequest';
 import { useCategoryReducer } from '../../../store/reducers/categoryReducer/useCategoryReducer';
-import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 
-export const useCategoryInsert = () => {
-  const [loading, setLoading] = useState(false);
+export const useCategoryInsert = (categoryId?: string) => {
   const [disableButton, setDisableButton] = useState(true);
-  const { setNotification } = useGlobalReducer();
+
   const navigate = useNavigate();
   const [category, setCategory] = useState<InsertCategory>({
     name: '',
   });
+  const [loadingCategory, setLoadingCategory] = useState(false);
+  const { category: categoryReducer, setCategory: setCategoryReducer } = useCategoryReducer();
   const { request } = useRequest();
-  const { setCategories } = useCategoryReducer();
+
+  useEffect(() => {
+    if (categoryReducer) {
+      setCategory({
+        name: categoryReducer.name,
+      });
+    }
+  }, [categoryReducer]);
 
   useEffect(() => {
     if (category.name !== '') {
@@ -28,6 +34,21 @@ export const useCategoryInsert = () => {
       setDisableButton(true);
     }
   }, [category]);
+
+  useEffect(() => {
+    const findProduct = async (id: string) => {
+      setLoadingCategory(true);
+      await request(URL_CATEGORY_ID.replace('{id}', `${id}`), MethodsEnum.GET, setCategoryReducer);
+      setLoadingCategory(false);
+    };
+
+    if (categoryId) {
+      findProduct(categoryId);
+    } else {
+      setCategory({ name: '' });
+      setCategoryReducer(undefined);
+    }
+  }, [categoryId]);
 
   const handleClickcancel = () => {
     navigate(RoutesEnum.CATEGORY);
@@ -41,29 +62,33 @@ export const useCategoryInsert = () => {
   };
 
   const handleSubmit = async () => {
-    setLoading(true);
-
-    await ConnectionAPIPost(URL_CATEGORY, category)
-      .then(() => {
-        setNotification('success', 'Sucesso!', 'Categoria adicionada com sucesso!');
-        navigate(RoutesEnum.CATEGORY);
-      })
-      .catch((e: Error) => {
-        setNotification('error', e.message);
-        navigate(RoutesEnum.CATEGORY);
-      })
-      .finally(async () => {
-        await request(URL_CATEGORY, MethodsEnum.GET, setCategories);
-        setLoading(false);
-      });
+    if (categoryId) {
+      await request(
+        URL_CATEGORY_ID.replace('{id}', `${categoryId}`),
+        MethodsEnum.PUT,
+        undefined,
+        category,
+        'Categoria editada com sucesso!',
+      );
+      navigate(RoutesEnum.CATEGORY);
+    } else {
+      await request(
+        URL_CATEGORY,
+        MethodsEnum.POST,
+        undefined,
+        category,
+        'Categoria criada com sucesso!',
+      );
+      navigate(RoutesEnum.CATEGORY);
+    }
   };
 
   return {
-    loading,
     disableButton,
     category,
     handleClickcancel,
     handleChange,
     handleSubmit,
+    loadingCategory,
   };
 };
