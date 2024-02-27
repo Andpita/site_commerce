@@ -1,4 +1,5 @@
 import {
+  AreaChartOutlined,
   HomeOutlined,
   LaptopOutlined,
   PlusSquareOutlined,
@@ -73,6 +74,12 @@ export const Menu = () => {
       label: 'Clientes',
       icon: <UserOutlined />,
       onClick: () => navigate(RoutesEnum.USER_ALL),
+    },
+    {
+      key: 'user',
+      label: 'Relatórios',
+      icon: <AreaChartOutlined />,
+      onClick: () => alert('Desabled'),
     },
   ];
   return (
