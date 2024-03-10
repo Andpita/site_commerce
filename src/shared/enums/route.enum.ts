@@ -11,4 +11,6 @@ export enum RoutesEnum {
   ORDER_ID = '/order/:orderId',
   USER_ALL = '/user/all',
   USER_INSERT_ADM = '/user/admin',
+  USER_TICKET = '/ticket',
+  USER_TICKET_ID = '/ticket/:id',
 }

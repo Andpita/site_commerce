@@ -2,6 +2,7 @@ import {
   AreaChartOutlined,
   HomeOutlined,
   LaptopOutlined,
+  MessageOutlined,
   PlusSquareOutlined,
   ProfileOutlined,
   SafetyCertificateOutlined,
@@ -76,10 +77,16 @@ export const Menu = () => {
       onClick: () => navigate(RoutesEnum.USER_ALL),
     },
     {
-      key: 'user',
+      key: '',
       label: 'Relatórios',
       icon: <AreaChartOutlined />,
       onClick: () => alert('Desabled'),
+    },
+    {
+      key: 'ticket',
+      label: 'Suporte',
+      icon: <MessageOutlined />,
+      onClick: () => navigate(RoutesEnum.USER_TICKET),
     },
   ];
   return (

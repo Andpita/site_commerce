@@ -19,6 +19,7 @@ export default class ConnectionAPI {
       case MethodsEnum.PATCH:
         return (await axios[method]<T>(url, body, config)).data;
       case MethodsEnum.GET:
+        return (await axios[method]<T>(url, config)).data;
       case MethodsEnum.DELETE:
         return (await axios[method]<T>(url, config)).data;
       default:
