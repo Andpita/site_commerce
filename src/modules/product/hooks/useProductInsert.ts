@@ -87,7 +87,6 @@ export const useInsertProduct = (productId?: string) => {
 
   const handleSubmit = async () => {
     if (productId) {
-      console.log(product);
       await request(
         URL_PRODUCTS_ID.replace('{id}', productId),
         MethodsEnum.PUT,

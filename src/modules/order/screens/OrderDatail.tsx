@@ -148,11 +148,11 @@ export const OrderDetail = () => {
         </>
       ) : (
         <>
-          <Descriptions title="Detalhes Usuário" bordered items={user} />;
+          <Descriptions title="Detalhes Usuário" bordered items={user} key={'user.id'} />
           <Divider />
-          <Descriptions title="Detalhes Pagamento" bordered items={payment} />;
+          <Descriptions title="Detalhes Pagamento" bordered items={payment} key={'payment.id'} />
           <Divider />
-          <ListOrderProduct ordersProduct={orderById.orderProduct} />
+          <ListOrderProduct ordersProduct={orderById.orderProduct} key={'orderById'} />
         </>
       )}
     </Screen>

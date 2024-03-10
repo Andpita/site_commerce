@@ -41,8 +41,14 @@ export const useProducts = () => {
   };
 
   const handleDeleteProduct = async (productId: number) => {
-    await request(URL_PRODUCTS_ID.replace('{id}', `${productId}`), MethodsEnum.DELETE);
-    console.log(productId);
+    await request(
+      URL_PRODUCTS_ID.replace('{id}', `${productId}`),
+      MethodsEnum.DELETE,
+      undefined,
+      undefined,
+      'Produto deletado com sucesso!',
+    );
+
     await request<ProductType[]>(URL_PRODUCTS, MethodsEnum.GET, setProducts);
     return null;
   };
