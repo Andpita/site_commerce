@@ -17,7 +17,7 @@ export const useCategoryInsert = (categoryId?: string) => {
   });
   const [loadingCategory, setLoadingCategory] = useState(false);
   const { category: categoryReducer, setCategory: setCategoryReducer } = useCategoryReducer();
-  const { request } = useRequest();
+  const { request, loading } = useRequest();
 
   useEffect(() => {
     if (categoryReducer) {
@@ -90,5 +90,6 @@ export const useCategoryInsert = (categoryId?: string) => {
     handleChange,
     handleSubmit,
     loadingCategory,
+    loading,
   };
 };
